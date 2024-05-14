@@ -84,4 +84,25 @@ public static class Serializer
             throw new Exception("Serializer not init");
         return Current.Subscribe(callback);
     }
+
+    public static bool Unsubscribe<T>(Action<T> callback)
+    {
+        if (Current is null)
+            throw new Exception("Serializer not init");
+        return Current.Unsubscribe(callback);
+    }
+
+    public static bool SubscribeTypeNotFound(Action<object> callback)
+    {
+        if (Current is null)
+            throw new Exception("Serializer not init");
+        return Current.SubscribeTypeNotFound(callback);
+    }
+
+    public static bool UnsubscribeTypeNotFound(Action<object> callback)
+    {
+        if (Current is null)
+            throw new Exception("Serializer not init");
+        return Current.UnsubscribeTypeNotFound(callback);
+    }
 }

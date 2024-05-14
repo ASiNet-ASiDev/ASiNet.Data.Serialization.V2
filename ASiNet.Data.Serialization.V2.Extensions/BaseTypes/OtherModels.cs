@@ -2,19 +2,19 @@
 
 public class BooleanSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, bool>(indexer, key) where TKey : notnull
 {
-    public override event Action<bool>? OnDeserialize;
+    public override event Action<bool>? Deserialized;
 
     public override bool Deserialize(SerializerIO io)
     {
         var result = BitConverter.ToBoolean([io.ReadByte()]);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
     public override object? DeserializeObj(SerializerIO io)
     {
         var result = BitConverter.ToBoolean([io.ReadByte()]);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -51,14 +51,14 @@ public class BooleanSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) 
 
 public class CharSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, char>(indexer, key) where TKey : notnull
 {
-    public override event Action<char>? OnDeserialize;
+    public override event Action<char>? Deserialized;
 
     public override char Deserialize(SerializerIO io)
     {
         var buffer = (stackalloc byte[sizeof(char)]);
         io.ReadBytes(buffer);
         var result = BitConverter.ToChar(buffer);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -67,7 +67,7 @@ public class CharSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : S
         var buffer = (stackalloc byte[sizeof(char)]);
         io.ReadBytes(buffer);
         var result = BitConverter.ToChar(buffer);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -104,7 +104,7 @@ public class CharSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : S
 
 public class DateTimeSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, DateTime>(indexer, key) where TKey : notnull
 {
-    public override event Action<DateTime>? OnDeserialize;
+    public override event Action<DateTime>? Deserialized;
 
     public override DateTime Deserialize(SerializerIO io)
     {
@@ -112,7 +112,7 @@ public class DateTimeSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key)
         io.ReadBytes(buffer);
         var result = BitConverter.ToInt64(buffer);
         var dt = DateTime.FromBinary(result);
-        OnDeserialize?.Invoke(dt);
+        Deserialized?.Invoke(dt);
         return dt;
     }
 
@@ -122,7 +122,7 @@ public class DateTimeSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key)
         io.ReadBytes(buffer);
         var result = BitConverter.ToInt64(buffer);
         var dt = DateTime.FromBinary(result);
-        OnDeserialize?.Invoke(dt);
+        Deserialized?.Invoke(dt);
         return dt;
     }
 
@@ -159,7 +159,7 @@ public class DateTimeSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key)
 
 public class TimeSpanSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, TimeSpan>(indexer, key) where TKey : notnull
 {
-    public override event Action<TimeSpan>? OnDeserialize;
+    public override event Action<TimeSpan>? Deserialized;
 
     public override TimeSpan Deserialize(SerializerIO io)
     {
@@ -167,7 +167,7 @@ public class TimeSpanSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key)
         io.ReadBytes(buffer);
         var result = BitConverter.ToInt64(buffer);
         var dt = TimeSpan.FromTicks(result);
-        OnDeserialize?.Invoke(dt);
+        Deserialized?.Invoke(dt);
         return dt;
     }
 
@@ -177,7 +177,7 @@ public class TimeSpanSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key)
         io.ReadBytes(buffer);
         var result = BitConverter.ToInt64(buffer);
         var dt = TimeSpan.FromTicks(result);
-        OnDeserialize?.Invoke(dt);
+        Deserialized?.Invoke(dt);
         return dt;
     }
 
@@ -216,14 +216,14 @@ public class GuidSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : S
 {
     public const int GUID_SIZE = 16;
 
-    public override event Action<Guid>? OnDeserialize;
+    public override event Action<Guid>? Deserialized;
 
     public override Guid Deserialize(SerializerIO io)
     {
         var buffer = (stackalloc byte[GUID_SIZE]);
         io.ReadBytes(buffer);
         var result = new Guid(buffer);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -232,7 +232,7 @@ public class GuidSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : S
         var buffer = (stackalloc byte[GUID_SIZE]);
         io.ReadBytes(buffer);
         var result = new Guid(buffer);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 

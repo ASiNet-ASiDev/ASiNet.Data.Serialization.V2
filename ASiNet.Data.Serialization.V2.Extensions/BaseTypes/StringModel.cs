@@ -3,7 +3,7 @@
 namespace ASiNet.Data.Serialization.V2.Extensions.BaseTypes;
 public class StringSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, string>(indexer, key) where TKey : notnull
 {
-    public override event Action<string?>? OnDeserialize;
+    public override event Action<string?>? Deserialized;
 
     public override string? Deserialize(SerializerIO io)
     {
@@ -16,7 +16,7 @@ public class StringSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) :
         io.ReadBytes(buff);
         var result = Encoding.UTF8.GetString(buff);
 
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -31,7 +31,7 @@ public class StringSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) :
         io.ReadBytes(buff);
         var result = Encoding.UTF8.GetString(buff);
 
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 

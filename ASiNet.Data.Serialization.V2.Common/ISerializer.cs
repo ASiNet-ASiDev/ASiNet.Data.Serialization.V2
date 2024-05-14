@@ -9,4 +9,9 @@ public interface ISerializer
 
     public bool Subscribe<T>(Action<T> action);
 
+    public bool Unsubscribe<T>(Action<T> action);
+
+    public bool SubscribeTypeNotFound(Action<object> action);
+
+    public bool UnsubscribeTypeNotFound(Action<object> action);
 }

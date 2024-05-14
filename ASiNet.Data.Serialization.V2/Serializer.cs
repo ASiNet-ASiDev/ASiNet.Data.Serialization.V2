@@ -43,7 +43,7 @@ public class Serializer<TKey>(SerializerContext<TKey> context) : ISerializer whe
             var model = _context.GetModel<T>();
             if (model is null)
                 return false;
-            model.OnDeserialize += action;
+            model.Deserialized += action;
 
             return true;
         }
@@ -51,5 +51,34 @@ public class Serializer<TKey>(SerializerContext<TKey> context) : ISerializer whe
         {
             return false;
         }
+    }
+
+    public bool Unsubscribe<T>(Action<T> action)
+    {
+        try
+        {
+            var model = _context.GetModel<T>();
+            if (model is null)
+                return false;
+            model.Deserialized -= action;
+
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    public bool SubscribeTypeNotFound(Action<object> action)
+    {
+        _context.TypeNotFound += action;
+        return true;
+    }
+
+    public bool UnsubscribeTypeNotFound(Action<object> action)
+    {
+        _context.TypeNotFound -= action;
+        return true;
     }
 }

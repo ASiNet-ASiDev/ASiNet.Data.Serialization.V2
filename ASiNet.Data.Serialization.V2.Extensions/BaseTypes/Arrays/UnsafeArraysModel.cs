@@ -47,7 +47,7 @@ file static class ArrayHelper
 
 public class Int32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, int[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<int[]?>? OnDeserialize;
+    public override event Action<int[]?>? Deserialized;
 
     public override int[]? Deserialize(SerializerIO io)
     {
@@ -57,7 +57,7 @@ public class Int32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length * sizeof(int)];
         io.ReadBytes(bytes);
         var result = bytes.AsInt32Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -69,7 +69,7 @@ public class Int32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length * sizeof(int)];
         io.ReadBytes(bytes);
         var result = bytes.AsInt32Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -124,7 +124,7 @@ public class Int32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
 
 public class UInt32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, uint[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<uint[]?>? OnDeserialize;
+    public override event Action<uint[]?>? Deserialized;
 
     public override uint[]? Deserialize(SerializerIO io)
     {
@@ -134,7 +134,7 @@ public class UInt32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(uint)];
         io.ReadBytes(bytes);
         var result = bytes.AsUInt32Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -146,7 +146,7 @@ public class UInt32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(uint)];
         io.ReadBytes(bytes);
         var result = bytes.AsUInt32Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -201,7 +201,7 @@ public class UInt32ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
 
 public class Int16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, short[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<short[]?>? OnDeserialize;
+    public override event Action<short[]?>? Deserialized;
 
     public override short[]? Deserialize(SerializerIO io)
     {
@@ -211,7 +211,7 @@ public class Int16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length * sizeof(short)];
         io.ReadBytes(bytes);
         var result = bytes.AsInt16Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -223,7 +223,7 @@ public class Int16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length * sizeof(short)];
         io.ReadBytes(bytes);
         var result = bytes.AsInt16Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -278,7 +278,7 @@ public class Int16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
 
 public class UInt16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, ushort[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<ushort[]?>? OnDeserialize;
+    public override event Action<ushort[]?>? Deserialized;
 
     public override ushort[]? Deserialize(SerializerIO io)
     {
@@ -288,7 +288,7 @@ public class UInt16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(ushort)];
         io.ReadBytes(bytes);
         var result = bytes.AsUInt16Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -300,7 +300,7 @@ public class UInt16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(ushort)];
         io.ReadBytes(bytes);
         var result = bytes.AsUInt16Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -355,7 +355,7 @@ public class UInt16ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
 
 public class Int64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, long[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<long[]?>? OnDeserialize;
+    public override event Action<long[]?>? Deserialized;
 
     public override long[]? Deserialize(SerializerIO io)
     {
@@ -365,7 +365,7 @@ public class Int64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length * sizeof(long)];
         io.ReadBytes(bytes);
         var result = bytes.AsInt64Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -377,7 +377,7 @@ public class Int64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length * sizeof(long)];
         io.ReadBytes(bytes);
         var result = bytes.AsInt64Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -432,7 +432,7 @@ public class Int64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
 
 public class UInt64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, ulong[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<ulong[]?>? OnDeserialize;
+    public override event Action<ulong[]?>? Deserialized;
 
     public override ulong[]? Deserialize(SerializerIO io)
     {
@@ -442,7 +442,7 @@ public class UInt64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(ulong)];
         io.ReadBytes(bytes);
         var result = bytes.AsUInt64Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -454,7 +454,7 @@ public class UInt64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(ulong)];
         io.ReadBytes(bytes);
         var result = bytes.AsUInt64Array();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -509,7 +509,7 @@ public class UInt64ArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
 
 public class CharArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, char[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<char[]?>? OnDeserialize;
+    public override event Action<char[]?>? Deserialized;
 
     public override char[]? Deserialize(SerializerIO io)
     {
@@ -519,7 +519,7 @@ public class CharArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seria
         var bytes = new byte[length * sizeof(char)];
         io.ReadBytes(bytes);
         var result = bytes.AsCharArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -531,7 +531,7 @@ public class CharArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seria
         var bytes = new byte[length * sizeof(char)];
         io.ReadBytes(bytes);
         var result = bytes.AsCharArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -586,7 +586,7 @@ public class CharArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seria
 
 public class BooleanArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, bool[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<bool[]?>? OnDeserialize;
+    public override event Action<bool[]?>? Deserialized;
 
     public override bool[]? Deserialize(SerializerIO io)
     {
@@ -596,7 +596,7 @@ public class BooleanArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Se
         var bytes = new byte[length * sizeof(bool)];
         io.ReadBytes(bytes);
         var result = bytes.AsBooleanArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -608,7 +608,7 @@ public class BooleanArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Se
         var bytes = new byte[length * sizeof(bool)];
         io.ReadBytes(bytes);
         var result = bytes.AsBooleanArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -663,7 +663,7 @@ public class BooleanArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Se
 
 public class DateTimeArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, DateTime[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<DateTime[]?>? OnDeserialize;
+    public override event Action<DateTime[]?>? Deserialized;
 
     public override DateTime[]? Deserialize(SerializerIO io)
     {
@@ -673,7 +673,7 @@ public class DateTimeArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : S
         var bytes = new byte[length * sizeof(long)];
         io.ReadBytes(bytes);
         var result = bytes.AsDateTimeArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -685,7 +685,7 @@ public class DateTimeArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : S
         var bytes = new byte[length * sizeof(long)];
         io.ReadBytes(bytes);
         var result = bytes.AsDateTimeArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -744,7 +744,7 @@ public class DateTimeArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : S
 
 public class DoubleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, double[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<double[]?>? OnDeserialize;
+    public override event Action<double[]?>? Deserialized;
 
     public override double[]? Deserialize(SerializerIO io)
     {
@@ -754,7 +754,7 @@ public class DoubleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(double)];
         io.ReadBytes(bytes);
         var result = bytes.AsDoubleArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -766,7 +766,7 @@ public class DoubleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(double)];
         io.ReadBytes(bytes);
         var result = bytes.AsDoubleArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -821,7 +821,7 @@ public class DoubleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
 
 public class SingleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, float[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<float[]?>? OnDeserialize;
+    public override event Action<float[]?>? Deserialized;
 
     public override float[]? Deserialize(SerializerIO io)
     {
@@ -831,7 +831,7 @@ public class SingleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(float)];
         io.ReadBytes(bytes);
         var result = bytes.AsSingleArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -843,7 +843,7 @@ public class SingleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
         var bytes = new byte[length * sizeof(float)];
         io.ReadBytes(bytes);
         var result = bytes.AsSingleArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -898,7 +898,7 @@ public class SingleArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Ser
 
 public class GuidArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, Guid[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<Guid[]?>? OnDeserialize;
+    public override event Action<Guid[]?>? Deserialized;
 
     public override Guid[]? Deserialize(SerializerIO io)
     {
@@ -908,7 +908,7 @@ public class GuidArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seria
         var bytes = new byte[length * sizeof(decimal)];
         io.ReadBytes(bytes);
         var result = bytes.AsGuidArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -920,7 +920,7 @@ public class GuidArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seria
         var bytes = new byte[length * sizeof(decimal)];
         io.ReadBytes(bytes);
         var result = bytes.AsGuidArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -979,7 +979,7 @@ public class GuidArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seria
 
 public class SByteArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, sbyte[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<sbyte[]?>? OnDeserialize;
+    public override event Action<sbyte[]?>? Deserialized;
 
     public override sbyte[]? Deserialize(SerializerIO io)
     {
@@ -989,7 +989,7 @@ public class SByteArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length];
         io.ReadBytes(bytes);
         var result = bytes.AsSByteArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -1001,7 +1001,7 @@ public class SByteArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
         var bytes = new byte[length];
         io.ReadBytes(bytes);
         var result = bytes.AsSByteArray();
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -1056,7 +1056,7 @@ public class SByteArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seri
 
 public class ByteArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey, byte[]>(indexer, key) where TKey : notnull
 {
-    public override event Action<byte[]?>? OnDeserialize;
+    public override event Action<byte[]?>? Deserialized;
 
     public override byte[]? Deserialize(SerializerIO io)
     {

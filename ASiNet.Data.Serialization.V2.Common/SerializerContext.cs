@@ -8,6 +8,8 @@ public class SerializerContext<TKey>() where TKey : notnull
 
     public ModelsIndexer<TKey> Indexer { get; private set; } = null!;
 
+    public Action<object>? TypeNotFound;
+
     public void SetIndexer(ModelsIndexer<TKey> indexer)
     {
         if(Indexer == null)
@@ -32,6 +34,8 @@ public class SerializerContext<TKey>() where TKey : notnull
     {
         if (_models.TryGetValue(key, out var model))
             return model as SerializerModel<TKey, TType> ?? throw new Exception();
+        TypeNotFound?.Invoke(key);
+
         throw new NotImplementedException();
     }
 
@@ -41,24 +45,25 @@ public class SerializerContext<TKey>() where TKey : notnull
     {
         if (_typeModelsPair.TryGetValue(typeof(TType), out var model))
             return model as SerializerModel<TKey, TType> ?? throw new Exception();
-        else
-            throw new NotImplementedException();
+        TypeNotFound?.Invoke(typeof(TType));
+        throw new NotImplementedException();
     }
 
     public SerializerModel<TKey> GetModel(Type type)
     {
         if (_typeModelsPair.TryGetValue(type, out var model))
             return model;
-        else
-            throw new NotImplementedException();
+        TypeNotFound?.Invoke(type);
+        throw new NotImplementedException();
     }
 
     public SerializerModel<TKey> GetModel(TKey key)
     {
         if (_models.TryGetValue(key, out var model))
             return model;
-        else
-            throw new NotImplementedException();
+
+        TypeNotFound?.Invoke(key);
+        throw new NotImplementedException();
     }
 
     public TKey ReadIndex(SerializerIO io)

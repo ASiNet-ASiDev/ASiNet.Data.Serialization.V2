@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RepositoryUrl>https://github.com/ASiNet-ASiDev/ASiNet.Data.Serialization.V2</RepositoryUrl>
-    <Version>0.0.1</Version>
+    <Version>0.0.3</Version>
     <Authors>ASiDev</Authors>
     <Title>$(AssemblyName)</Title>
     <Copyright>MIT</Copyright>

@@ -21,11 +21,13 @@ public abstract class SerializerModel<TKey>(ModelsIndexer<TKey> indexer, TKey ke
     public abstract void SerializeObjAndWriteIndex(object? obj, SerializerIO io);
 
     public abstract void SubscribeDeserializeEvent(Delegate action);
+
+    public abstract void UnsubscribeDeserializeEvent(Delegate action);
 }
 
 public abstract class SerializerModel<TKey, TType>(ModelsIndexer<TKey> indexer, TKey key) : SerializerModel<TKey>(indexer, key, typeof(TType)) where TKey : notnull
 {
-    public abstract event Action<TType?>? OnDeserialize;
+    public abstract event Action<TType?>? Deserialized;
 
     public abstract TType? Deserialize(SerializerIO io);
 
@@ -36,7 +38,15 @@ public abstract class SerializerModel<TKey, TType>(ModelsIndexer<TKey> indexer, 
     public override void SubscribeDeserializeEvent(Delegate action)
     {
         if(action is Action<TType?> taction)
-            OnDeserialize += taction;
+            Deserialized += taction;
+        else
+            throw new NotImplementedException();
+    }
+
+    public override void UnsubscribeDeserializeEvent(Delegate action)
+    {
+        if (action is Action<TType?> taction)
+            Deserialized -= taction;
         else
             throw new NotImplementedException();
     }
@@ -50,12 +60,12 @@ public class SerializerModelGeneration<TKey, TType>(ModelsIndexer<TKey> indexer,
     protected Lazy<SerializeDelegate<TType>> _serializeLambda = new(() => generator.GenerateSerializeLambda<TKey, TType>(type, context));
     protected Lazy<DeserializeDelegate<TType>> _deserializeLambda = new(() => generator.GenerateDeserializeLambda<TKey, TType>(type, context));
 
-    public override event Action<TType?>? OnDeserialize;
+    public override event Action<TType?>? Deserialized;
 
     public override object? DeserializeObj(SerializerIO io)
     {
         var result = _deserializeLambda.Value.Invoke(io);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
@@ -73,7 +83,7 @@ public class SerializerModelGeneration<TKey, TType>(ModelsIndexer<TKey> indexer,
     public override TType? Deserialize(SerializerIO io)
     {
         var result = _deserializeLambda.Value.Invoke(io);
-        OnDeserialize?.Invoke(result);
+        Deserialized?.Invoke(result);
         return result;
     }
 
