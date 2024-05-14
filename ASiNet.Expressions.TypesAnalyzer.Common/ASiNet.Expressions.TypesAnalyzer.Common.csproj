@@ -5,6 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>ASiNet.Expressions.TypesAnalyzer</RootNamespace>
+    <RepositoryUrl>https://github.com/ASiNet-ASiDev/ASiNet.Data.Serialization.V2</RepositoryUrl>
+    <Copyright>MIT</Copyright>
+    <Authors>ASiDev</Authors>
+    <Version>0.0.1</Version>
+    <Title>$(AssemblyName)</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
