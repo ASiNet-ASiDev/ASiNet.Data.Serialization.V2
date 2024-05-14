@@ -5,10 +5,10 @@ using ASiNet.Data.Serialization.V2.IO;
 
 Serializer.Init<int>(x => x.SetIndexer(new TestIndexer())
     .RegisterBaseTypes()
-    .RegisterType<A>(ModelsGenerators.DefaultGenerator)
-    .RegisterType<EnTest>(ModelsGenerators.EnumsGenerator)
-    .RegisterType<EnTest[]>(ModelsGenerators.ArraysGenerator)
-    .RegisterType<int?>(ModelsGenerators.NullablesGenerator)
+    .RegisterType<A>( ASiNet.Data.Serialization.V2.Enums.DefaultGenerators.Classes)
+    .RegisterType<EnTest>( ASiNet.Data.Serialization.V2.Enums.DefaultGenerators.Enums)
+    .RegisterType<EnTest[]>( ASiNet.Data.Serialization.V2.Enums.DefaultGenerators.Arrays)
+    .RegisterType<int?>( ASiNet.Data.Serialization.V2.Enums.DefaultGenerators.NullableValueTypes)
     .Build());
 
 

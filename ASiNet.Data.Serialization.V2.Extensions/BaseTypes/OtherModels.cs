@@ -199,7 +199,7 @@ public class TimeSpanSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key)
     public override void SerializeObj(object? obj, SerializerIO io)
     {
         var buffer = (stackalloc byte[sizeof(long)]);
-        BitConverter.TryWriteBytes(buffer, ((DateTime)obj!).Ticks);
+        BitConverter.TryWriteBytes(buffer, ((TimeSpan)obj!).Ticks);
         io.WriteBytes(buffer);
     }
 
@@ -207,7 +207,7 @@ public class TimeSpanSerializeModel<TKey>(ModelsIndexer<TKey> indexer, TKey key)
     {
         Indexer.WriteIndex(Key, io);
         var buffer = (stackalloc byte[sizeof(long)]);
-        BitConverter.TryWriteBytes(buffer, ((DateTime)obj!).Ticks);
+        BitConverter.TryWriteBytes(buffer, ((TimeSpan)obj!).Ticks);
         io.WriteBytes(buffer);
     }
 }

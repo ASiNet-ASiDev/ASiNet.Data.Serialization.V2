@@ -1,5 +1,5 @@
 ﻿namespace ASiNet.Data.Serialization.V2;
-public static class ModelsGenerators
+internal static class ModelsGenerators
 {
 
     public static LambdasGenerator DefaultGenerator => _defaultGenerator.Value;

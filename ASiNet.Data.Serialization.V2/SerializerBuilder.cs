@@ -1,4 +1,6 @@
-﻿namespace ASiNet.Data.Serialization.V2;
+﻿using ASiNet.Data.Serialization.V2.Enums;
+
+namespace ASiNet.Data.Serialization.V2;
 
 public class SerializerBuilder<TKey> : ISerializerBuilder<TKey> where TKey : notnull
 {
@@ -26,6 +28,24 @@ public class SerializerBuilder<TKey> : ISerializerBuilder<TKey> where TKey : not
         _context.AddModel(inst);
         return this;
     }
+
+    public ISerializerBuilder<TKey> RegisterType(Type type, DefaultGenerators generator) =>
+        RegisterType(type, generator switch 
+        { 
+            DefaultGenerators.Classes => ModelsGenerators.DefaultGenerator,
+            DefaultGenerators.Enums => ModelsGenerators.EnumsGenerator,
+            DefaultGenerators.Arrays => ModelsGenerators.ArraysGenerator,
+            DefaultGenerators.NullableValueTypes => ModelsGenerators.NullablesGenerator,
+        });
+
+    public ISerializerBuilder<TKey> RegisterType<T>(DefaultGenerators generator) =>
+        RegisterType<T>(generator switch
+        {
+            DefaultGenerators.Classes => ModelsGenerators.DefaultGenerator,
+            DefaultGenerators.Enums => ModelsGenerators.EnumsGenerator,
+            DefaultGenerators.Arrays => ModelsGenerators.ArraysGenerator,
+            DefaultGenerators.NullableValueTypes => ModelsGenerators.NullablesGenerator,
+        });
 
     public ISerializerBuilder<TKey> RegisterType<T>(LambdasGenerator generator)
     {

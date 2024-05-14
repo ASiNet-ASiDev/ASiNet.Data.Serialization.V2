@@ -971,7 +971,7 @@ public class GuidArrayModel<TKey>(ModelsIndexer<TKey> indexer, TKey key) : Seria
         io.WriteByte(1);
 
         ArrayHelper.WriteLength(arr.Length, io);
-        var dist = new DateTime[arr!.Length];
+        var dist = new Guid[arr!.Length];
         arr!.CopyTo(dist, 0);
         io.WriteBytes(dist.AsByteArray());
     }

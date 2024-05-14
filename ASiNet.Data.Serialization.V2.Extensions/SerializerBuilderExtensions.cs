@@ -34,6 +34,26 @@ public static class SerializerBuilderExtensions
         return builder;
     }
 
+    public static ISerializerBuilder<TKey> RegisterNullableBaseTypes<TKey>(this ISerializerBuilder<TKey> builder) where TKey : notnull
+    {
+        builder.RegisterType<byte?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<sbyte?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<short?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<ushort?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<int?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<uint?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<long?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<ulong?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<float?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<double?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<bool?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<char?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<DateTime?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<TimeSpan?>(Enums.DefaultGenerators.NullableValueTypes)
+            .RegisterType<Guid?>(Enums.DefaultGenerators.NullableValueTypes);
+        return builder;
+    }
+
     public static ISerializerBuilder<TKey> RegisterUnsafeArrays<TKey>(this ISerializerBuilder<TKey> builder) where TKey : notnull
     {
         var indexer = builder.Indexer;
