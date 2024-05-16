@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace ASiNet.Expressions.TypesAnalyzer;
 
@@ -69,5 +70,32 @@ public class ExpType(Type type)
         var body = BuildOrderedPropertiesAccess(instance, keySelector, action);
         var lambda = Expression.Lambda<Action<Tinstance>>(body, instance);
         return lambda.Compile();
+    }
+
+    public IEnumerable<Type> EnumirateInvolvedTypes()
+    {
+        if (BaseType.IsArray)
+        {
+            yield return BaseType.GetElementType()!;
+        }
+        else if (BaseType.IsEnum)
+        {
+            yield return BaseType.GetEnumUnderlyingType()!;
+        }
+        else if (BaseType.IsValueType && Nullable.GetUnderlyingType(BaseType) is Type nut)
+        {
+            yield return nut;
+        }
+        else if (BaseType.IsValueType && !BaseType.IsEnum && !BaseType.IsPrimitive)
+        {
+            foreach (var propertyType in BaseType.GetProperties().Select(x => x.PropertyType))
+                yield return propertyType;
+        }
+        else if (!BaseType.IsArray && !BaseType.IsValueType && !BaseType.IsInterface && !BaseType.IsAbstract && BaseType != typeof(string))
+        {
+            foreach (var propertyType in BaseType.GetProperties().Select(x => x.PropertyType))
+                yield return propertyType;
+        }
+        yield return BaseType;
     }
 }

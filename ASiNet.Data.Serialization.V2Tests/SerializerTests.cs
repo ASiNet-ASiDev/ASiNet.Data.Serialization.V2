@@ -224,6 +224,76 @@ public class SerializerTests
         Serializer.Serialize<Guid[]>([gu], buffer);
         Assert.AreEqual<Guid>(gu, Serializer.Deserialize<Guid[]>(buffer)!.First());
     }
+
+    [TestMethod()]
+    public void AutoGeneratorTest()
+    {
+        Serializer.Init<int>(x => x.SetIndexer(new TestIndexer())
+            .RegisterBaseTypes()
+            .RegisterType<TestType1>()
+            .RegisterType<TestType2>()
+            .RegisterType<TestType2[]>()
+            .RegisterType<TestEnum1>()
+            .RegisterType<TestEnum2>()
+            .Build());
+
+        var inst = new TestType1()
+        { 
+            A = 50, B = 40, C = 60, 
+            D = [new TestType2() { A = 30, B = 40, C = 50, TestEnum2 = TestEnum2.B }],
+            E = TestEnum1.S
+        };
+
+        var buffer = new byte[128];
+        Serializer.Serialize<TestType1>(inst, buffer);
+
+        var result = Serializer.Deserialize<TestType1>(buffer);
+        Assert.AreEqual<int>(inst.A, result!.A);
+        Assert.AreEqual<int>(inst.B, result!.B);
+        Assert.AreEqual<int>(inst.C, result!.C);
+
+        Assert.AreEqual<int>(inst.D![0].A, result!.D![0].A);
+        Assert.AreEqual<int>(inst.D![0].B, result!.D![0].B);
+        Assert.AreEqual<int>(inst.D![0].C, result!.D![0].C);
+        Assert.AreEqual<TestEnum2>(inst.D![0].TestEnum2, result!.D![0].TestEnum2);
+
+
+        Assert.AreEqual<TestEnum1>(inst!.E, result!.E);
+    }
+
+    [TestMethod()]
+    public void SerializerRTDTest()
+    {
+        Serializer.Init<int>(x => x.SetIndexer(new TestIndexer())
+            .AllowRecursiveTypeDeconstruction()
+            .RegisterBaseTypes()
+            .RegisterType<TestType1>()
+            .Build());
+
+        var inst = new TestType1()
+        {
+            A = 50,
+            B = 40,
+            C = 60,
+            D = [new TestType2() { A = 30, B = 40, C = 50, TestEnum2 = TestEnum2.B }],
+            E = TestEnum1.S
+        };
+
+        var buffer = new byte[128];
+        Serializer.Serialize<TestType1>(inst, buffer);
+
+        var result = Serializer.Deserialize<TestType1>(buffer);
+        Assert.AreEqual<int>(inst.A, result!.A);
+        Assert.AreEqual<int>(inst.B, result!.B);
+        Assert.AreEqual<int>(inst.C, result!.C);
+
+        Assert.AreEqual<int>(inst.D![0].A, result!.D![0].A);
+        Assert.AreEqual<int>(inst.D![0].B, result!.D![0].B);
+        Assert.AreEqual<int>(inst.D![0].C, result!.D![0].C);
+        Assert.AreEqual<TestEnum2>(inst.D![0].TestEnum2, result!.D![0].TestEnum2);
+
+        Assert.AreEqual<TestEnum1>(inst!.E, result!.E);
+    }
 }
 
 public class TestIndexer : ModelsIndexer<int>
@@ -250,3 +320,35 @@ public class TestIndexer : ModelsIndexer<int>
         iO.WriteBytes(buff);
     }
 }
+
+
+public class TestType1
+{
+    public int A { get; set; }
+
+    public int B { get; set; }
+
+    public int C { get; set; }
+
+    public TestType2[]? D { get; set; }
+
+    public TestEnum1 E { get; set; }
+
+}
+
+public struct TestType2
+{
+    public int A { get; set; }
+
+    public int B { get; set; }
+
+    public int C { get; set; }
+
+    public TestEnum2 TestEnum2 { get; set; }
+
+}
+
+
+public enum TestEnum1 { A, B, S, D, E };
+
+public enum TestEnum2 { A, B, S, D, E };

@@ -18,6 +18,21 @@ public class SerializerContext<TKey>() where TKey : notnull
             throw new NotImplementedException();
     }
 
+    public bool ContainsModel<TType>()
+    {
+        return _typeModelsPair.ContainsKey(typeof(TType));
+    }
+
+    public bool ContainsModel(Type type)
+    {
+        return _typeModelsPair.ContainsKey(type);
+    }
+
+    public bool ContainsModel(TKey key)
+    {
+        return _models.ContainsKey(key);
+    }
+
     public void AddModel<TType>(SerializerModel<TKey, TType> model)
     {
         _models.Add(model.Key, model);
